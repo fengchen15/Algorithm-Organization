@@ -109,3 +109,19 @@ public class LetterCombinations {
     }
 }
 ```
+或者用哈希表完成数字与字符串对应：  
+```java
+    private static final Map<Character, String> LETTER_MAP = new HashMap<>();
+
+    // 静态代码块初始化哈希表
+    static {
+        LETTER_MAP.put('2', "abc");
+        LETTER_MAP.put('3', "def");
+        LETTER_MAP.put('4', "ghi");
+        LETTER_MAP.put('5', "jkl");
+        LETTER_MAP.put('6', "mno");
+        LETTER_MAP.put('7', "pqrs");
+        LETTER_MAP.put('8', "tuv");
+        LETTER_MAP.put('9', "wxyz");
+    }
+```
