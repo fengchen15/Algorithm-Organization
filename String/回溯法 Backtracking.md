@@ -13,7 +13,7 @@
 问题描述：数字 n 代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且 有效的 括号组合。  
 示例解法 ： 
 ```java  
-public List<String> generateParenthesis(int n) {
+    public List<String> generateParenthesis(int n) {
         List<String> result = new ArrayList<>();
         backtrack(result, new StringBuilder(), 0, 0, n);
         return result;
@@ -46,4 +46,66 @@ public List<String> generateParenthesis(int n) {
             current.append(')');
             backtrack(result, current, open, close + 1, max);
             current.deleteCharAt(current.length() - 1); // 回溯：移除最后添加的右括号
+        } 
+    }
+```
+
+### e.g.2 电话号码的字母组合
+问题描述：给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。答案可以按 任意顺序 返回。
+给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。  
+
+示例解法：  
+```java
+public class LetterCombinations {
+    // 数字到字母的映射（索引对应数字，值对应字母）
+    private static final String[] LETTERS = {
+        "",     // 0（未使用）
+        "",     // 1（未使用）
+        "abc",  // 2
+        "def",  // 3
+        "ghi",  // 4
+        "jkl",  // 5
+        "mno",  // 6
+        "pqrs", // 7
+        "tuv",  // 8
+        "wxyz"  // 9
+    };
+
+    public List<String> letterCombinations(String digits) {
+        List<String> result = new ArrayList<>();
+        if (digits == null || digits.length() == 0) {
+            return result; // 空输入直接返回空列表
         }
+        // 调用回溯方法，初始组合为空，从第0个数字开始处理
+        backtrack(result, new StringBuilder(), digits, 0);
+        return result;
+    }
+
+    /**
+     * 回溯生成所有字母组合
+     * @param result 存储结果的集合
+     * @param current 当前拼接的组合
+     * @param digits 输入的数字字符串
+     * @param index 当前处理的数字索引（从0开始）
+     */
+    private void backtrack(List<String> result, StringBuilder current, String digits, int index) {
+        // 终止条件：处理完所有数字（索引等于字符串长度）
+        if (index == digits.length()) {
+            result.add(current.toString());
+            return;
+        }
+
+        // 获取当前数字对应的字母（如 digits[index] 是 '2'，则对应 "abc"）
+        char digit = digits.charAt(index);
+        String letters = LETTERS[digit - '0']; // 字符转数字（'2' - '0' = 2）
+
+        // 遍历当前数字对应的所有字母，逐个尝试
+        for (int i = 0; i < letters.length(); i++) {
+            char c = letters.charAt(i);
+            current.append(c); // 选择当前字母
+            backtrack(result, current, digits, index + 1); // 递归处理下一个数字
+            current.deleteCharAt(current.length() - 1); // 回溯：移除最后一个字母
+        }
+    }
+}
+```
