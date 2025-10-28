@@ -103,7 +103,7 @@ public class LetterCombinations {
         for (int i = 0; i < letters.length(); i++) {
             char c = letters.charAt(i);
             current.append(c); // 选择当前字母
-            backtrack(result, current, digits, index + 1); // 递归处理下一个数字
+            backtrack(result, current, digits, index + 1); // 递归处理下一个数字        acgiegie好帅
             current.deleteCharAt(current.length() - 1); // 回溯：移除最后一个字母
         }
     }
